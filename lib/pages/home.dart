@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ui_challenge_01/widgets/home_navbar.dart';
+import 'package:ui_challenge_01/widgets/home_widgets/home_navbar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
-
   @override
   State<Home> createState() => _HomeState();
 }
@@ -19,6 +18,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: _pages[_currentPage]),
       body: IndexedStack(index: _currentPage, children: _pages),
       bottomNavigationBar: HomeNavbar(
         onPageChange: _onPageChange,
