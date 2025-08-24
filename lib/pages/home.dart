@@ -21,8 +21,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(title: _pages[_currentPage]),
       body: IndexedStack(index: _currentPage, children: _pages),
       bottomNavigationBar: HomeNavbar(
-        onPageChange: _onPageChange,
-        currentPage: _currentPage,
+        onPageChange: _onPageChange
       ),
     );
   }

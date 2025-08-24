@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_challenge_01/pages/home.dart';
+import 'package:ui_challenge_01/pages/test_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Home(),
+      home:  TestScreen(),
     );
   }
 }
