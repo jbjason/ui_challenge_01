@@ -26,23 +26,31 @@ class _HomeNavbarState extends State<HomeNavbar>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 2000));
+    _initState();
+  }
 
+  void _initState() {
+    // initializing animation
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1000));
     _navItemAninmation =
         CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _colorAnimationp =
         ColorTween(begin: Colors.grey, end: Colors.red).animate(_controller);
+    // declaring initial Start & End point
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _navItemWidth = context.screenWidth / 3;
+      _currentStartPoint = 0.0;
+      _currentEndPoint = _navItemWidth;
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    _navItemWidth = context.screenWidth / 3;
     return AnimatedBuilder(
         animation: _controller,
         builder: (context, _) {
-          _currentStartPoint = _navItemWidth * _currentPage;
-          _currentEndPoint = _currentStartPoint + _navItemWidth;
           return SizedBox(
             height: kBottomNavigationBarHeight,
             child: Column(
@@ -61,10 +69,9 @@ class _HomeNavbarState extends State<HomeNavbar>
                   child: CustomPaint(
                     painter: HomeNavbarPainter(
                       controllerValue: _navItemAninmation.value,
-                      currentEndPoint: _currentStartPoint,
-                      currentStartPoint: _currentEndPoint,
+                      currentStartPoint: _currentStartPoint,
+                      currentEndPoint: _currentEndPoint,
                       destinationPoint: _destinationStartPoint,
-                      width: context.screenWidth,
                     ),
                   ),
                 ),
@@ -75,20 +82,30 @@ class _HomeNavbarState extends State<HomeNavbar>
   }
 
   Widget _getNavBarItem({required int index, required String img}) {
-    final isSelected = index == _currentPage;
-    final color = isSelected ? _colorAnimationp.value : null;
+    final color = index == _currentPage ? _colorAnimationp.value : null;
     return GestureDetector(
       onTap: () async {
         if (index == _currentPage) return;
-        _currentPage = index;
+
+        //  widget.onPageChange(_currentPage);
         // updating destination point
         _getDestinationStartPoint(index);
+        _currentPage = index;
         setState(() {});
-        // animation part
-        _controller.stop();
-        _controller.forward(from: 0.0);
-        // calling to update current page
-        widget.onPageChange(index);
+        Future.delayed(Duration()).then((_) {
+          // animation part
+
+          _controller.stop();
+          _controller.forward(from: 0.0).whenComplete(() {
+            _currentStartPoint += _destinationStartPoint;
+            _currentEndPoint += _destinationStartPoint;
+            print("-=----------------");
+            print(
+                "After animation, start: $_currentStartPoint, end: $_currentEndPoint");
+            print("-=----------------");
+            _controller.stop();
+          });
+        });
       },
       child: SizedBox(
         width: _navItemWidth,
@@ -105,7 +122,8 @@ class _HomeNavbarState extends State<HomeNavbar>
     } else {
       _destinationStartPoint = -((_currentPage - newIndex) * _navItemWidth);
     }
-    setState(() {});
+    print(
+        "Destination: $_destinationStartPoint : from $_currentStartPoint to $_currentEndPoint");
   }
 
   @override
@@ -121,22 +139,18 @@ class HomeNavbarPainter extends CustomPainter {
   final double currentEndPoint;
   final double destinationPoint;
   final double strokeWidth;
-  final double width;
   const HomeNavbarPainter({
     required this.controllerValue,
     required this.currentStartPoint,
     required this.destinationPoint,
     required this.currentEndPoint,
     this.strokeWidth = 5.0,
-    required this.width,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     print(
-        "destinationVaL: $destinationPoint   :::::::  animationVal : $controllerValue");
-    print(
-        "start: ${currentStartPoint + (destinationPoint * controllerValue)} :::: ${currentEndPoint + (currentEndPoint * controllerValue)} ");
+        "destination: ${destinationPoint.toStringAsFixed(2)}, from ${(currentStartPoint + (destinationPoint * controllerValue)).toStringAsFixed(2)} to ${(currentEndPoint + (destinationPoint * controllerValue)).toStringAsFixed(2)}");
     final h = size.height;
     final paint = Paint()
       ..color = Colors.red
