@@ -7,7 +7,8 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
   int _currentPage = 0;
   final _pages = [
     TestScreen(title: "Home Screen"),
@@ -15,18 +16,59 @@ class _HomeState extends State<Home> {
     TestScreen(title: "Schedule Screen"),
   ];
 
+  // navbar animation
+  late Animation<double> _navItemAninmation;
+  late Animation _navItemcolorAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _initState();
+  }
+
+  void _initState() {
+    // initializing animation
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1000));
+
+    // // navbar animation initialization
+    _navItemAninmation =
+        CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _navItemcolorAnimation =
+        ColorTween(begin: Colors.grey, end: Colors.red).animate(_controller);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: _pages[_currentPage]),
       body: IndexedStack(index: _currentPage, children: _pages),
       bottomNavigationBar: HomeNavbar(
-        onPageChange: _onPageChange
+        currentPage: _currentPage,
+        onPageChange: _onPageChange,
+        controller: _controller,
+        navItemAninmation: _navItemAninmation,
+        navItemcolorAnimation: _navItemcolorAnimation,
       ),
     );
   }
 
-  void _onPageChange(int i) => setState(() => _currentPage = i);
+  void _onPageChange(int i, Function funtion) {
+    setState(() => _currentPage = i);
+    Future.delayed(Duration()).then((_) {
+      _controller.stop();
+      _controller.forward(from: 0.0).whenComplete(() {
+        funtion();
+        _controller.stop();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 }
 
 class TestScreen extends StatelessWidget {
