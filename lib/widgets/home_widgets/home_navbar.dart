@@ -19,7 +19,7 @@ class HomeNavbar extends StatefulWidget {
         _navItemAninmation = navItemAninmation,
         _navItemcolorAnimation = navItemcolorAnimation;
   final int _currentPage;
-  final Function onPageChange;
+  final Function(int i, Function f) onPageChange;
   final AnimationController _controller;
   final Animation<double> _navItemAninmation;
   final Animation _navItemcolorAnimation;
@@ -88,10 +88,10 @@ class _HomeNavbarState extends State<HomeNavbar> {
     required int index,
     required String img,
   }) =>
-      GestureDetector(
-        onTap: () => _onNavItemTap(index),
-        child: SizedBox(
-          width: _navItemWidth,
+      SizedBox(
+        width: _navItemWidth,
+        child: GestureDetector(
+          onTap: () => _onNavItemTap(index),
           child: Center(
             child: Image.asset(
               img,
@@ -105,20 +105,18 @@ class _HomeNavbarState extends State<HomeNavbar> {
       );
 
   void _onNavItemTap(int index) {
-    () async {
-      if (index == widget._currentPage) return;
-      // updating destination point
-      _getDestinationStartPoint(index);
-      // starting the animation & it will call this funtion after animation in completed
-      widget.onPageChange(index, () {
-        _currentStartPoint += _destinationStartPoint;
-        _currentEndPoint += _destinationStartPoint;
-        // print("-=----------------");
-        // print(
-        //     "After animation, start: $_currentStartPoint, end: $_currentEndPoint");
-        // print("-=----------------");
-      });
-    };
+    if (index == widget._currentPage) return;
+    // updating destination point
+    _getDestinationStartPoint(index);
+    // starting the animation & it will call this funtion after animation in completed
+    widget.onPageChange(index, () {
+      _currentStartPoint += _destinationStartPoint;
+      _currentEndPoint += _destinationStartPoint;
+      // print("-=----------------");
+      // print(
+      //     "After animation, start: $_currentStartPoint, end: $_currentEndPoint");
+      // print("-=----------------");
+    });
   }
 
   void _getDestinationStartPoint(int newIndex) {
