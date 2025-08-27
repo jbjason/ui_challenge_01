@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
 import 'package:ui_challenge_01/widgets/home_widgets/home_daily_goal.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({
     super.key,
     required this.controller,
     required this.currentPage,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
 import 'package:ui_challenge_01/widgets/home_widgets/home_daily_goal.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({
+class ScheduleScreen extends StatelessWidget {
+  const ScheduleScreen({
     super.key,
     required this.controller,
     required this.currentPage,
@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
         child: Column(
           children: [
-            AppBar(title: Text("Home Screen")),
+            AppBar(title: Text("Schedule Screen")),
             const SizedBox(height: 20),
             SizedBox(
               width: context.screenWidth,

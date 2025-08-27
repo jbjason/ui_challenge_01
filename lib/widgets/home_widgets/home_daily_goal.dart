@@ -4,49 +4,91 @@ import 'dart:math';
 
 class HomeDailyGoal extends StatelessWidget {
   const HomeDailyGoal(
-      {super.key,
-      required this.controller,
-      required this.drawerAnimation,
-      required this.currentPage,
-      required this.previousPage});
-  final AnimationController controller;
-  final Animation<double> drawerAnimation;
+      {super.key, required this.controller, required this.currentPage});
+  final PageController controller;
   final int currentPage;
-  final int previousPage;
   @override
   Widget build(BuildContext context) {
     final width = context.screenWidth;
     return AnimatedBuilder(
-      animation: drawerAnimation,
+      animation: controller,
       builder: (_, __) {
-        final val = drawerAnimation.value;
-        return Container(
-          constraints: BoxConstraints.expand(),
-          child: previousPage < currentPage
-              ? Transform.translate(
-                  offset: Offset(-width * (1 - val), 0),
-                  child: Transform(
-                    alignment: Alignment.centerRight,
-                    transform: Matrix4.identity()
-                      ..setEntry(3, 2, .001)
-                      ..rotateY(pi / 2 * (1 - val)),
-                    child: Container(
-                      width: width,
-                      color: const Color.fromARGB(255, 35, 138, 185),
-                      child: Text("---------------------------"),
+        double val = 0.0;
+        double pageVal = controller.page ?? 0;
+        val = (currentPage - pageVal).clamp(0, 1);
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: width *.3,
+              child: Transform.translate(
+                offset: Offset(-(width *.2) * val, 0),
+                child: Transform(
+                  alignment: Alignment.centerRight,
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, .001)
+                    ..rotateY(-pi / 2 * val),
+                  child: _getTansformChild,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Opacity(
+              opacity: 1 - val,
+              child: SizedBox(
+                height: context.screenHeight * .3,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: List.generate(
+                      3,
+                      (i) => Container(
+                        margin: EdgeInsets.symmetric(vertical: 7),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 15,
+                              offset: Offset(5, 5),
+                              color: Colors.grey.shade300,
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 100,
+                              height: 120,
+                              child: Image.network(
+                                  "https://picsum.photos/200/300"),
+                            ),
+                            const SizedBox(width: 20),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Text(
+                                      "A Simple way to start your day with a good breakfast"),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    "Dr Testoren",
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Icon(Icons.lightbulb_outline, color: Colors.red),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                )
-              : Transform.translate(
-                  offset: Offset(-width * (1 - val), 0),
-                  child: Transform(
-                    alignment: Alignment.centerRight,
-                    transform: Matrix4.identity()
-                      ..setEntry(3, 2, .001)
-                      ..rotateY(pi / 2 * (1 - val)),
-                    child: _getTansformChild,
-                  ),
                 ),
+              ),
+            ),
+          ],
         );
 
         // Stack(
