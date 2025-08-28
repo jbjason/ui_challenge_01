@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
 import 'dart:math';
+import 'dart:developer' as developer;
+
+void logInfo(String msg) {
+  developer.log('\x1B[34m$msg\x1B[0m'); // Blue
+}
+
+void logError(String msg) {
+  developer.log('\x1B[31m$msg\x1B[0m'); // Red
+}
 
 class HomeDailyGoal extends StatelessWidget {
   const HomeDailyGoal(
@@ -16,13 +25,14 @@ class HomeDailyGoal extends StatelessWidget {
         double val = 0.0;
         double pageVal = controller.page ?? 0;
         val = (currentPage - pageVal).clamp(0, 1);
+        logInfo("val :  $val");
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              width: width *.3,
+              width: width ,
               child: Transform.translate(
-                offset: Offset(-(width *.2) * val, 0),
+                offset: Offset(-width * val, 0),
                 child: Transform(
                   alignment: Alignment.centerRight,
                   transform: Matrix4.identity()

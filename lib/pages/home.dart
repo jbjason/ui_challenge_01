@@ -36,19 +36,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     // drawer animation initialization
     _drawerAnimation = CurvedAnimation(
         parent: _controller,
-        curve: Interval(0.3, 1, curve: Curves.easeInOutCubic));
+        curve: Interval(0.0, 7, curve: Curves.easeInOutCubic));
     // navbar animation initialization
     _navItemAninmation =
         CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
     _navItemcolorAnimation =
         ColorTween(begin: Colors.grey, end: Colors.red).animate(_controller);
     // adding pages
-    _pages.add(
-        HomeScreen(controller: _pageController, currentPage: 0));
-    _pages.add(
-        ScheduleScreen(controller: _pageController, currentPage: 1));
-    _pages.add(
-        ProfileScreen(controller: _pageController, currentPage: 2));
+    _pages.add(HomeScreen(controller: _pageController, currentPage: 0));
+    _pages.add(ScheduleScreen(controller: _pageController, currentPage: 1));
+    _pages.add(ProfileScreen(controller: _pageController, currentPage: 2));
   }
 
   double val = 0;
