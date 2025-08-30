@@ -72,22 +72,20 @@ class _TestScreenState extends State<TestScreen>
                       itemCount: _pages.length,
                       itemBuilder: (context, index) {
                         final percent = _value - index;
+                        // if (_value < 0) {
+                        logError(
+                            "Negative: ${percent.toStringAsPrecision(3)}. &  rotateVal: ${math.radians(85) * percent.clamp(-1, 1)}");
+                        // }
+                        // logInfo(
+                        //     "percent : ${percent.toStringAsPrecision(3)}");
 
-                        logInfo(
-                            "percent : ${percent.toStringAsPrecision(3)}  ${_controller.position.userScrollDirection}");
-
-                        return
-                            // Opacity(
-                            //   opacity: 1 - percent.clamp(0, 1),
-                            //   child:
-                            Transform(
-                         alignment: Alignment.centerRight,
+                        return Transform(
+                          alignment: Alignment.centerRight,
                           transform: Matrix4.identity()
-                           ..setEntry(3, 2, 0.001)
-                          .. rotateY(math.radians( 90 * percent )),
+                            ..setEntry(3, 2, 0.001)
+                            ..rotateY(math.radians(90) * percent.clamp(-1, 1)),
                           //transform: Matrix4.identity()..rotateZ( percent),
                           child: _pages[index],
-                          // ),
                         );
                       },
                     ),
