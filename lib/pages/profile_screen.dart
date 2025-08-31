@@ -6,10 +6,10 @@ class ProfileScreen extends StatelessWidget {
   const ProfileScreen({
     super.key,
     required this.controller,
-    required this.currentPage,
+    required this.percent,
   });
   final PageController controller;
-  final int currentPage;
+  final double percent;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
               width: context.screenWidth,
               child: HomeDailyGoal(
                 controller: controller,
-                currentPage: currentPage,
+                percent: percent,
               ),
             ),
           ],

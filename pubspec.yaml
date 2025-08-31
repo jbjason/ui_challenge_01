@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   lottie: ^3.3.1
+  rive: ^0.13.20
 
 dev_dependencies:
   flutter_test:
@@ -36,17 +37,16 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: Casab
+      fonts:
+        - asset: assets/fonts/casab.ttf
+    - family: Script
+      fonts:
+        - asset: assets/fonts/script.ttf
+    - family: Vinque
+      fonts:
+        - asset: assets/fonts/vinque.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

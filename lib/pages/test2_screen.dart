@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
-import 'package:ui_challenge_01/pages/home.dart';
 import 'package:ui_challenge_01/widgets/home_widgets/home_bottom_list.dart';
 import 'package:ui_challenge_01/widgets/home_widgets/home_daily_goal.dart';
-import 'dart:math';
 import 'package:vector_math/vector_math_64.dart' as math;
 
 class Test2Screen extends StatefulWidget {
@@ -13,8 +11,7 @@ class Test2Screen extends StatefulWidget {
 }
 
 class _Test2ScreenState extends State<Test2Screen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
+     {
   late PageController _controller;
   final _pages = [
     Image.asset("assets/images/male_dashboard.jpeg"),
@@ -38,10 +35,8 @@ class _Test2ScreenState extends State<Test2Screen>
   @override
   void initState() {
     super.initState();
-    _controller = PageController(viewportFraction: 0.9, initialPage: 1);
+    _controller = PageController(viewportFraction: .9, initialPage: 1);
     _controller.addListener(_listener);
-    _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 600));
   }
 
   void _listener() => setState(() => _value = _controller.page!);
@@ -55,10 +50,10 @@ class _Test2ScreenState extends State<Test2Screen>
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+           SizedBox(
               width: context.screenWidth,
               height: context.screenHeight * .7,
-              child: PageView.builder(
+              child:  PageView.builder(
                 controller: _controller,
                 // clipBehavior: Clip.none,
                 physics: const PageScrollPhysics(),
@@ -78,41 +73,40 @@ class _Test2ScreenState extends State<Test2Screen>
                           left: 0,
                           width: context.screenWidth * .5,
                           height: context.screenHeight * .3,
-                          child: Transform.translate(
-                            offset: Offset(
-                                (context.screenWidth * .48) * percent, 0),
-                            child: Transform(
-                                alignment: Alignment.centerRight,
-                                transform: Matrix4.identity()
-                                  ..setEntry(3, 2, 0.001)
-                                  ..rotateY(
-                                      math.radians(90 * percent.clamp(-1, 1))),
-                                // transform: Matrix4.identity()..rotateZ( percent),
-                                child:
-                                    //_pages[index]
-                                    _getTansformChild),
-                          ),
-                        ),
-                        // Positioned(
-                        //   left: 0,
-                        //   right: 0,
-                        //   height: context.screenHeight * .3,
-                        //   bottom: 5,
-                        //   child: HomeBottomList(),
-                        // ),
-                        Center(
-                          child: SizedBox(
-                            width: 250,
-                            height: 250,
-                            child: Transform(
-                              alignment: Alignment.center,
+                          child: Transform(
+                              alignment: Alignment.centerRight,
                               transform: Matrix4.identity()
-                                ..setEntry(3, 2, .0001)
-                                ..rotateX(math.radians(240))
-                                ..rotateZ(
-                                    math.radians(270* percent.clamp(-1, 1))),
-                              child: CustomPaint(
-                                  painter: HomeTrippleCircularPainter()),
+                                ..setEntry(3, 2, 0.001)
+                                ..translate(
+                                    (context.screenWidth * .5) * percent, 0)
+                                ..rotateY(
+                                    math.radians(90 * percent.clamp(-1, 1))),
+                              child:
+                                  //_pages[index]
+                                  _getTansformChild),
+                        ),
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          height: context.screenHeight * .3,
+                          bottom: 5,
+                          child: HomeBottomList(),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          width: 280,
+                          height: 250,
+                          child: Transform(
+                            alignment: Alignment.center,
+                            transform: Matrix4.identity()
+                              ..setEntry(3, 2, .0001)
+                              ..rotateX(math.radians(240))
+                              ..rotateZ(
+                                  math.radians(270 * percent.clamp(-1, 1))),
+                            child: CustomPaint(
+                              painter:
+                                  HomeTrippleCircularPainter(percent: percent),
                             ),
                           ),
                         ),
@@ -162,7 +156,6 @@ class _Test2ScreenState extends State<Test2Screen>
 
   @override
   void dispose() {
-    _animationController.dispose();
     _controller.removeListener(_listener);
     _controller.dispose();
     super.dispose();
@@ -170,6 +163,8 @@ class _Test2ScreenState extends State<Test2Screen>
 }
 
 class HomeTrippleCircularPainter extends CustomPainter {
+  final double percent;
+  const HomeTrippleCircularPainter({super.repaint, required this.percent});
   @override
   void paint(Canvas canvas, Size size) {
     final h = size.height, w = size.width;
@@ -177,34 +172,35 @@ class HomeTrippleCircularPainter extends CustomPainter {
     final rect = Rect.fromCenter(center: center, width: w, height: h);
     final paint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10
+      ..strokeWidth = 15 * (1 - percent)
       ..shader = _getColorShade(Colors.lightBlue).createShader(rect);
     final paint2 = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10
+      ..strokeWidth = 15 * (1 - percent)
       ..shader = _getColorShade(Colors.deepPurple).createShader(rect);
     final paint3 = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10
+      ..strokeWidth = 15 * (1 - percent)
       ..shader = _getColorShade(Colors.deepOrange).createShader(rect);
     canvas.drawOval(
-        Rect.fromCenter(center: center, width: w, height: h + 25), paint);
+        Rect.fromCenter(center: center, width: w + 40, height: h + 40), paint);
     canvas.drawOval(
-        Rect.fromCenter(center: center, width: w - 25, height: h), paint2);
+        Rect.fromCenter(center: center, width: w, height: h), paint2);
     canvas.drawOval(
-        Rect.fromCenter(center: center, width: w - 50, height: h - 25), paint3);
+        Rect.fromCenter(center: center, width: w - 40, height: h - 40), paint3);
   }
 
   SweepGradient _getColorShade(Color color) {
     return SweepGradient(
       tileMode: TileMode.repeated,
       startAngle: math.radians(0),
-      endAngle: math.radians(0 + 360),
+      endAngle: math.radians(360),
       colors: [
         color.withOpacity(.7),
         Colors.transparent,
         Colors.transparent,
         color.withOpacity(.7),
+        color,
         color,
         color.withOpacity(.7),
       ],

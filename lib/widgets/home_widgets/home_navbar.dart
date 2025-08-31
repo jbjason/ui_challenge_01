@@ -60,8 +60,8 @@ class _HomeNavbarState extends State<HomeNavbar> {
               Row(
                 children: [
                   _getNavBarItem(index: 0, img: MyImage.homeIcon),
-                  _getNavBarItem(index: 1, img: MyImage.homeIcon),
-                  _getNavBarItem(index: 2, img: MyImage.homeIcon),
+                  _getNavBarItem(index: 1, img: MyImage.scheduleIcon),
+                  _getNavBarItem(index: 2, img: MyImage.profileIcon),
                 ],
               ),
               const SizedBox(height: 10),
@@ -98,7 +98,6 @@ class _HomeNavbarState extends State<HomeNavbar> {
               color: index == widget._currentPage
                   ? widget._navItemcolorAnimation.value
                   : Colors.grey,
-              height: 30,
             ),
           ),
         ),

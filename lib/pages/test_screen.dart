@@ -24,7 +24,7 @@ class _TestScreenState extends State<TestScreen>
     //  Image.network("https://picsum.photos/200/300"),
     Image.asset("assets/images/male_dashboard.jpeg"),
   ];
-  int _currentPage = 0;
+  final int _currentPage = 0;
   double _value = 1;
 
   @override
@@ -56,43 +56,43 @@ class _TestScreenState extends State<TestScreen>
                 child: Text("data"),
               ),
             ),
-            Container(
-              color: Colors.grey,
-              width: context.screenWidth * .6,
-              height: context.screenHeight * .4,
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: PageView.builder(
-                      controller: _controller,
-                      clipBehavior: Clip.none,
-                      physics: const PageScrollPhysics(),
-                      onPageChanged: (value) =>
-                          setState(() => _currentPage = value),
-                      itemCount: _pages.length,
-                      itemBuilder: (context, index) {
-                        final percent = _value - index;
-                        // if (_value < 0) {
-                        logError(
-                            "Negative: ${percent.toStringAsPrecision(3)}. &  rotateVal: ${math.radians(85) * percent.clamp(-1, 1)}");
-                        // }
-                        // logInfo(
-                        //     "percent : ${percent.toStringAsPrecision(3)}");
+            // Container(
+            //   color: Colors.grey,
+            //   width: context.screenWidth * .6,
+            //   height: context.screenHeight * .4,
+            //   child: Stack(
+            //     children: [
+            //       Positioned.fill(
+            //         child: PageView.builder(
+            //           controller: _controller,
+            //           clipBehavior: Clip.none,
+            //           physics: const PageScrollPhysics(),
+            //           onPageChanged: (value) =>
+            //               setState(() => _currentPage = value),
+            //           itemCount: _pages.length,
+            //           itemBuilder: (context, index) {
+            //             final percent = _value - index;
+            //             // if (_value < 0) {
+            //             logError(
+            //                 "Negative: ${percent.toStringAsPrecision(3)}. &  rotateVal: ${math.radians(85) * percent.clamp(-1, 1)}");
+            //             // }
+            //             // logInfo(
+            //             //     "percent : ${percent.toStringAsPrecision(3)}");
 
-                        return Transform(
-                          alignment: Alignment.centerRight,
-                          transform: Matrix4.identity()
-                            ..setEntry(3, 2, 0.001)
-                            ..rotateY(math.radians(90) * percent.clamp(-1, 1)),
-                          //transform: Matrix4.identity()..rotateZ( percent),
-                          child: _pages[index],
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            )
+            //             return Transform(
+            //               alignment: Alignment.centerRight,
+            //               transform: Matrix4.identity()
+            //                 ..setEntry(3, 2, 0.001)
+            //                 ..rotateY(math.radians(90) * percent.clamp(-1, 1)),
+            //               //transform: Matrix4.identity()..rotateZ( percent),
+            //               child: _pages[index],
+            //             );
+            //           },
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // )
           ],
         ),
       ),

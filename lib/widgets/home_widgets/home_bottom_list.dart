@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_challenge_01/constants/my_contant.dart';
 
 class HomeBottomList extends StatelessWidget {
   const HomeBottomList({super.key});
@@ -11,7 +12,7 @@ class HomeBottomList extends StatelessWidget {
           3,
           (i) => Container(
             margin: EdgeInsets.symmetric(vertical: 7),
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+            padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: Colors.white,
@@ -24,18 +25,25 @@ class HomeBottomList extends StatelessWidget {
               ],
             ),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: 100,
-                  height: 120,
-                  child: Image.network("https://picsum.photos/200/300"),
+                Image.network(
+                  "https://picsum.photos/200/300",
+                  width: 80,
+                  height: 80,
                 ),
-                const SizedBox(width: 20),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                          "A Simple way to start your day with a good breakfast"),
+                        "A Simple way to start your day with a good breakfast",
+                        style: TextStyle(
+                          fontFamily: MyConstant.font3,
+                        ),
+                      ),
                       const SizedBox(height: 10),
                       Text(
                         "Dr Testoren",
