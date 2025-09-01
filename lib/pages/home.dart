@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
-import 'package:ui_challenge_01/constants/my_image.dart';
 import 'package:ui_challenge_01/pages/home_screen.dart';
 import 'package:ui_challenge_01/pages/profile_screen.dart';
 import 'package:ui_challenge_01/pages/schedule_screen.dart';
@@ -15,13 +13,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+  final List<Widget Function(double)> _pageBuilders = [];
   late PageController _pageController;
   late AnimationController _controller;
   late Animation<double> _navItemAninmation;
   late Animation _navItemcolorAnimation;
-  int _currentPage = 0, _previousPage = 0;
   double _controllerValue = 0, _percent = 0;
-  final List<Widget Function(double)> _pageBuilders = [];
+  int _currentPage = 0;
 
   @override
   void initState() {
@@ -58,25 +56,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         child: SizedBox(
           width: context.screenWidth,
           height: context.screenHeight,
-          child: Stack(
-            children: [
-              Positioned(
-                right: -30,
-                bottom: context.screenHeight * .3,
-                child: HomeMovingActor(),
-              ),
-              PageView.builder(
-                controller: _pageController,
-                clipBehavior: Clip.none,
-                physics: const PageScrollPhysics(),
-                onPageChanged: (value) => setState(() => _currentPage = value),
-                itemCount: _pageBuilders.length,
-                itemBuilder: (context, index) {
-                  _percent = _controllerValue - index;
-                  return _pageBuilders[index](_percent);
-                },
-              ),
-            ],
+          child: PageView.builder(
+            controller: _pageController,
+            clipBehavior: Clip.none,
+            physics: const PageScrollPhysics(),
+            onPageChanged: (value) => setState(() => _currentPage = value),
+            itemCount: _pageBuilders.length,
+            itemBuilder: (context, index) {
+              _percent = _controllerValue - index;
+              return _pageBuilders[index](_percent);
+            },
           ),
         ),
       ),
@@ -94,11 +83,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     Future.delayed(Duration()).then((_) {
       _controller.stop();
       _controller.forward(from: 0.0).whenComplete(() {
-        funtion();
         _controller.stop();
+        funtion();
       });
     });
-    _previousPage = _currentPage;
     setState(() => _currentPage = i);
   }
 

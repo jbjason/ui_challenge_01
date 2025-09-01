@@ -1,11 +1,9 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ui_challenge_01/pages/test_screen.dart';
-import 'package:rive/rive.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  unawaited(RiveFile.initialize());
+  // WidgetsFlutterBinding.ensureInitialized();
+  // unawaited(RiveFile.initialize());
   runApp(const MyApp());
 }
 

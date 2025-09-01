@@ -10,4 +10,6 @@ abstract class MyImage {
   static const actorImageJson = "assets/images/actor.json";
   static const movingMountainImageJson = "assets/images/moving_mountain.json";
   static const movingPlaneImageJson = "assets/images/moving_plane.json";
+
+  static const rhinoImageGLB= "assets/images/rhino.glb";
 }

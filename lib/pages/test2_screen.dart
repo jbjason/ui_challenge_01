@@ -1,7 +1,8 @@
+// ignore_for_file: depend_on_referenced_packages
 import 'package:flutter/material.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
+import 'package:ui_challenge_01/constants/my_dimens.dart';
 import 'package:ui_challenge_01/widgets/home_widgets/home_bottom_list.dart';
-import 'package:ui_challenge_01/widgets/home_widgets/home_daily_goal.dart';
 import 'package:vector_math/vector_math_64.dart' as math;
 
 class Test2Screen extends StatefulWidget {
@@ -22,14 +23,14 @@ class _Test2ScreenState extends State<Test2Screen>
     //  Image.network("https://picsum.photos/200/300"),
     Image.asset("assets/images/male_dashboard.jpeg"),
   ];
-  final _colors = [
-    Colors.red,
-    Colors.amber,
-    Colors.black,
-    Colors.indigo,
-    Colors.deepPurple
-  ];
-  int _currentPage = 0;
+  // final _colors = [
+  //   Colors.red,
+  //   Colors.amber,
+  //   Colors.black,
+  //   Colors.indigo,
+  //   Colors.deepPurple
+  // ];
+   int _currentPage = 0;
   double _value = 1;
 
   @override
@@ -61,7 +62,7 @@ class _Test2ScreenState extends State<Test2Screen>
                 itemCount: _pages.length,
                 itemBuilder: (context, index) {
                   final percent = _value - index;
-                  logInfo(
+                 MyDimens. logInfo(
                       "percent : ${percent.toStringAsPrecision(3)}  ${_controller.position.userScrollDirection}");
                   return Opacity(
                     opacity: 1 - percent.abs().clamp(0, 1),
