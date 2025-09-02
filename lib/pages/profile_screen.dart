@@ -1,9 +1,9 @@
+// ignore_for_file: depend_on_referenced_packages
 import 'package:flutter/material.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
-import 'package:ui_challenge_01/widgets/home_widgets/home_bottom_list.dart';
 import 'package:ui_challenge_01/widgets/home_widgets/home_moving_actor.dart';
-import 'package:ui_challenge_01/widgets/schedule_widgets/schedule_top_text.dart';
-
+import 'package:ui_challenge_01/widgets/profile_widgets/profile_bottom_list.dart';
+import 'package:ui_challenge_01/widgets/profile_widgets/profile_top_text.dart';
 import 'package:vector_math/vector_math_64.dart' as math;
 
 class ProfileScreen extends StatelessWidget {
@@ -16,15 +16,37 @@ class ProfileScreen extends StatelessWidget {
   final double percent;
   @override
   Widget build(BuildContext context) {
-   final width = context.screenWidth;
+    final width = context.screenWidth;
     return Opacity(
       opacity: 1 - percent.abs().clamp(0, 1),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Positioned.fill(
-            bottom: context.screenHeight * .2,
-            child: HomeMovingActor(cameraOrbit: "0deg 0deg"),
+          Column(
+            children: [
+              Container(
+                height: context.screenHeight * .5,
+                width: context.screenWidth,
+                color: const Color.fromARGB(255, 233, 230, 229),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.white),
+                      ),
+                    ),
+                    // Positioned.fill(
+                    //   child: HomeMovingActor(cameraOrbit: "60deg 90deg 90deg"),
+                    // ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text("Daily Goals"),
+              const SizedBox(height: 20),
+              Expanded(child: ProfileBottomList()),
+            ],
           ),
           Positioned(
             top: 30,
@@ -36,18 +58,11 @@ class ProfileScreen extends StatelessWidget {
                 ..setEntry(3, 2, 0.001)
                 ..translate((width * .45) * percent, 0)
                 ..rotateY(math.radians(90 * percent.clamp(-1, 1))),
-              child: ScheduleTopText(),
+              child: ProfileTopText(),
             ),
-          ),
-          Positioned(
-            height: context.screenHeight * .2,
-            width: context.screenWidth * .9,
-            bottom: 5,
-            child: HomeBottomList(),
           ),
         ],
       ),
     );
   }
-  
 }

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
 import 'package:ui_challenge_01/constants/my_dimens.dart';
-import 'package:ui_challenge_01/widgets/home_widgets/home_bottom_list.dart';
+import 'package:ui_challenge_01/widgets/dashboard_widgets/dashboard_bottom_list.dart';
 import 'package:vector_math/vector_math_64.dart' as math;
 
 class Test2Screen extends StatefulWidget {
@@ -91,7 +91,7 @@ class _Test2ScreenState extends State<Test2Screen>
                           right: 0,
                           height: context.screenHeight * .3,
                           bottom: 5,
-                          child: HomeBottomList(),
+                          child: DashboardBottomList(),
                         ),
                         Positioned(
                           bottom: 0,

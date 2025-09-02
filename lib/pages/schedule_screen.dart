@@ -1,8 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:flutter/material.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
-import 'package:ui_challenge_01/widgets/home_widgets/home_bottom_list.dart';
-import 'package:ui_challenge_01/widgets/home_widgets/home_moving_actor.dart';
+import 'package:ui_challenge_01/widgets/dashboard_widgets/dashboard_bottom_list.dart';
 import 'package:ui_challenge_01/widgets/schedule_widgets/schedule_top_text.dart';
 import 'package:vector_math/vector_math_64.dart' as math;
 
@@ -20,12 +19,7 @@ class ScheduleScreen extends StatelessWidget {
     return Opacity(
       opacity: 1 - percent.abs().clamp(0, 1),
       child: Stack(
-        clipBehavior: Clip.none,
         children: [
-          Positioned.fill(
-            bottom: context.screenHeight * .2,
-            child: HomeMovingActor(cameraOrbit: "0deg 90deg"),
-          ),
           Positioned(
             top: 30,
             left: 0,
@@ -40,10 +34,10 @@ class ScheduleScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            height: context.screenHeight * .2,
+            height: context.screenHeight * .3,
             width: context.screenWidth * .9,
             bottom: 5,
-            child: HomeBottomList(),
+            child: DashboardBottomList(),
           ),
         ],
       ),

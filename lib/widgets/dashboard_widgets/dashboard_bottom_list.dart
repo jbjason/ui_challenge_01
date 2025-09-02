@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ui_challenge_01/constants/my_contant.dart';
+import 'package:ui_challenge_01/constants/my_constant.dart';
 
-class HomeBottomList extends StatelessWidget {
-  const HomeBottomList({super.key});
+class DashboardBottomList extends StatelessWidget {
+  const DashboardBottomList({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -2,9 +2,9 @@
 import 'package:vector_math/vector_math_64.dart' as math;
 import 'package:flutter/material.dart';
 
-class HomeCirclePainter extends CustomPainter {
+class DashboardCirclePainter extends CustomPainter {
   final double percent;
-  const HomeCirclePainter({super.repaint, required this.percent});
+  const DashboardCirclePainter({super.repaint, required this.percent});
   @override
   void paint(Canvas canvas, Size size) {
     final h = size.height, w = size.width;

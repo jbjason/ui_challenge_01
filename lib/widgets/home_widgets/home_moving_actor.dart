@@ -1,24 +1,27 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:flutter/material.dart';
-import 'package:model_viewer_plus/model_viewer_plus.dart';
+import 'package:flutter_3d_controller/flutter_3d_controller.dart';
+import 'package:ui_challenge_01/constants/my_constant.dart';
 import 'package:ui_challenge_01/constants/my_image.dart';
-import 'package:vector_math/vector_math_64.dart' as math;
 
 class HomeMovingActor extends StatelessWidget {
-  const HomeMovingActor({super.key, required this.cameraOrbit});
-  final String cameraOrbit ;
+  const HomeMovingActor({super.key, required this.controller});
+  final Flutter3DController controller;
 
   @override
   Widget build(BuildContext context) {
-    return ModelViewer(
+    return Flutter3DViewer(
+      controller: controller,
+      enableTouch: false,
       src: MyImage.rhinoImageGLB,
-      disableZoom: true,
-      disableTap: true,
-      ar: false,
-      autoPlay: false, 
-      cameraControls: false,
-      touchAction: TouchAction.none,
-      cameraOrbit: cameraOrbit,
+      onLoad: (modelAddress) {
+      //  controller.playAnimation();
+        controller.setCameraOrbit(
+          MyConstant.cameraOrbitList[0][0],
+          MyConstant.cameraOrbitList[0][1],
+          MyConstant.cameraOrbitList[0][2],
+        );
+      },
     );
   }
 }

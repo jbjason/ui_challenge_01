@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_3d_controller/flutter_3d_controller.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
 import 'package:ui_challenge_01/constants/my_dimens.dart';
+import 'package:ui_challenge_01/constants/my_image.dart';
 import 'package:ui_challenge_01/pages/home.dart';
 import 'package:ui_challenge_01/widgets/home_widgets/home_moving_actor.dart';
 
@@ -14,31 +16,36 @@ class TestScreen extends StatefulWidget {
 
 class _TestScreenState extends State<TestScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late PageController _controller;
-  final _pages = [
-    Image.asset("assets/images/male_dashboard.jpeg"),
-    Image.asset("assets/images/male_dashboard.jpeg"),
-    //  Image.network("https://picsum.photos/200/300"),
-    Image.asset("assets/images/male_dashboard.jpeg"),
-    Image.asset("assets/images/male_dashboard.jpeg"),
-    //  Image.network("https://picsum.photos/200/300"),
-    Image.asset("assets/images/male_dashboard.jpeg"),
-  ];
-  final int _currentPage = 0;
-  double _value = 1;
+  // late AnimationController _animationController;
+  // late PageController _controller;
+  // final _pages = [
+  //   Image.asset("assets/images/male_dashboard.jpeg"),
+  //   Image.asset("assets/images/male_dashboard.jpeg"),
+  //   //  Image.network("https://picsum.photos/200/300"),
+  //   Image.asset("assets/images/male_dashboard.jpeg"),
+  //   Image.asset("assets/images/male_dashboard.jpeg"),
+  //   //  Image.network("https://picsum.photos/200/300"),
+  //   Image.asset("assets/images/male_dashboard.jpeg"),
+  // ];
+  // final int _currentPage = 0;
+  // double _value = 1;
   double _rotateVal = 0, _rotateVal2 = 0;
+  final Flutter3DController _controller = Flutter3DController();
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _controller = PageController(viewportFraction: 0.8, initialPage: 1);
+  //   _controller.addListener(_listener);
+  //   _animationController = AnimationController(
+  //       vsync: this, duration: const Duration(milliseconds: 600));
+  // }
+
+  // void _listener() => setState(() => _value = _controller.page!);
   @override
   void initState() {
     super.initState();
-    _controller = PageController(viewportFraction: 0.8, initialPage: 1);
-    _controller.addListener(_listener);
-    _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 600));
   }
-
-  void _listener() => setState(() => _value = _controller.page!);
 
   @override
   Widget build(BuildContext context) {
@@ -50,20 +57,20 @@ class _TestScreenState extends State<TestScreen>
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              Center(
-                child: Container(
-                  height: 250,
-                  width: 250,
-                  color: Colors.amber,
-                  child: Transform(
-                    transform: Matrix4.identity()
-                   //   ..rotateX(math.radians(_rotateVal2))
-                      ..rotateZ(math.radians(_rotateVal))
-                      ..rotateY(math.radians(_rotateVal)),
-                    child: HomeMovingActor(cameraOrbit: ""),
-                  ),
-                ),
-              ),
+              // Center(
+              //   child: Container(
+              //     height: 250,
+              //     width: 250,
+              //     color: Colors.amber,
+              //     child: Transform(
+              //       transform: Matrix4.identity()
+              //      //   ..rotateX(math.radians(_rotateVal2))
+              //         ..rotateZ(math.radians(_rotateVal))
+              //         ..rotateY(math.radians(_rotateVal)),
+              //       child: HomeMovingActor(cameraOrbit: ""),
+              //     ),
+              //   ),
+              // ),
               // Container(
               //   color: Colors.grey,
               //   width: context.screenWidth * .6,
@@ -100,33 +107,40 @@ class _TestScreenState extends State<TestScreen>
               //     ],
               //   ),
               // )
+
+              /// Actor animation test
               Row(
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      _rotateVal += 5;
-                      _rotateVal += 5;
-                      setState(() {});
-                      MyDimens.logError("rotateVal: $_rotateVal");
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (_) => Home()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => Home()),
+                      );
+                      // _rotateVal += 5;
+                      // _rotateVal2 += 5;
+                      // _controller.setCameraOrbit(90, 90, 0);
+                      // MyDimens.logError("rotateVal: $_rotateVal");
                     },
                     child: Text("data plus"),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       _rotateVal -= 5;
-                      _rotateVal -= 5;
-                      setState(() {});
+                      _rotateVal2 -= 5;
+                      _controller.setCameraOrbit(0, 90, 0);
                       MyDimens.logError("rotateVal: $_rotateVal");
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (_) => Home()),
-                      // );
                     },
                     child: Text("data minus"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      _rotateVal -= 5;
+                      _rotateVal2 -= 5;
+                      _controller.setCameraOrbit(60, 90, 90);
+                      MyDimens.logError("rotateVal: $_rotateVal");
+                    },
+                    child: Text("data 000"),
                   ),
                 ],
               ),
@@ -137,11 +151,64 @@ class _TestScreenState extends State<TestScreen>
     );
   }
 
-  @override
-  void dispose() {
-    _animationController.dispose();
-    _controller.removeListener(_listener);
-    _controller.dispose();
-    super.dispose();
+  // @override
+  // void dispose() {
+  //   _animationController.dispose();
+  //   _controller.removeListener(_listener);
+  //   _controller.dispose();
+  //   super.dispose();
+  // }
+}
+
+
+class RedOverlayWithHole extends StatelessWidget {
+  const RedOverlayWithHole({super.key});
+ @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          // 1. Background (white with image/logo/drawing)
+          Container(
+            color: Colors.white,
+            alignment: Alignment.center,
+            child: FlutterLogo(size: 300), // <-- your background content
+          ),
+
+          // 2. Foreground with red + hole
+          CustomPaint(
+            size: MediaQuery.of(context).size,
+            painter: RedOverlayPainter(),
+          ),
+        ],
+      ),
+    );
   }
+}
+
+class RedOverlayPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Save the current canvas layer so blend modes work
+    canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
+
+    // Draw full red rectangle
+    final paint = Paint()..color = Colors.red;
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
+
+    // Punch out a transparent circle
+    final holePaint = Paint()
+      ..blendMode = BlendMode.clear; // clears pixels
+    canvas.drawCircle(
+      Offset(size.width / 2, size.height / 3), // circle position
+      80, // circle radius
+      holePaint,
+    );
+
+    // Restore canvas
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

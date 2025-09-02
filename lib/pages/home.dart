@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_3d_controller/flutter_3d_controller.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
-import 'package:ui_challenge_01/pages/home_screen.dart';
+import 'package:ui_challenge_01/constants/my_constant.dart';
+import 'package:ui_challenge_01/pages/dashboard_screen.dart';
 import 'package:ui_challenge_01/pages/profile_screen.dart';
 import 'package:ui_challenge_01/pages/schedule_screen.dart';
 import 'package:ui_challenge_01/widgets/home_widgets/home_moving_actor.dart';
@@ -14,6 +16,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   final List<Widget Function(double)> _pageBuilders = [];
+  final Flutter3DController _rhinoController = Flutter3DController();
   late PageController _pageController;
   late AnimationController _controller;
   late Animation<double> _navItemAninmation;
@@ -52,20 +55,31 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 233, 230, 229),
-      body: SafeArea(
-        child: SizedBox(
-          width: context.screenWidth,
-          height: context.screenHeight,
-          child: PageView.builder(
-            controller: _pageController,
-            clipBehavior: Clip.none,
-            physics: const PageScrollPhysics(),
-            onPageChanged: (value) => setState(() => _currentPage = value),
-            itemCount: _pageBuilders.length,
-            itemBuilder: (context, index) {
-              _percent = _controllerValue - index;
-              return _pageBuilders[index](_percent);
-            },
+      body: SizedBox(
+        width: context.screenWidth,
+        height: context.screenHeight,
+        child: SafeArea(
+          child: Stack(
+            children: [
+              Positioned(
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                child: HomeMovingActor(controller: _rhinoController),
+              ),
+              PageView.builder(
+                controller: _pageController,
+                clipBehavior: Clip.none,
+                physics: const PageScrollPhysics(),
+                onPageChanged: (value) => setState(() => _currentPage = value),
+                itemCount: _pageBuilders.length,
+                itemBuilder: (context, index) {
+                  _percent = _controllerValue - index;
+                  return _pageBuilders[index](_percent);
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -80,14 +94,21 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   void _onPageChange(int i, Function funtion) async {
-    Future.delayed(Duration()).then((_) {
-      _controller.stop();
-      _controller.forward(from: 0.0).whenComplete(() {
-        _controller.stop();
-        funtion();
-      });
-    });
-    setState(() => _currentPage = i);
+    _pageController.animateToPage(i,
+        duration: Duration(milliseconds: 1000), curve: Curves.easeInCubic);
+    _rhinoController.setCameraOrbit(
+      MyConstant.cameraOrbitList[i][0],
+      MyConstant.cameraOrbitList[i][1],
+      MyConstant.cameraOrbitList[i][2],
+    );
+    // Future.delayed(Duration()).then((_) {
+    //   _controller.stop();
+    //   _controller.forward(from: 0.0).whenComplete(() {
+    //     _controller.stop();
+    //     funtion();
+    //   });
+    // });
+    // setState(() => _currentPage = i);
   }
 
   @override
