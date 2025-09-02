@@ -21,7 +21,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _navItemAninmation;
   late Animation _navItemcolorAnimation;
-  double _controllerValue = 0, _percent = 0, _leftVal = 0;
+  double _controllerValue = 0, _percent = 0;
   int _currentPage = 0;
 
   @override
@@ -47,8 +47,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     _pageBuilders.add((percent) =>
         ProfileScreen(controller: _pageController, percent: percent));
     _pageController.addListener(_listener);
-    WidgetsBinding.instance.addPostFrameCallback(
-        (_) => setState(() => _leftVal = context.screenWidth * .25));
   }
 
   void _listener() => setState(() => _controllerValue = _pageController.page!);
@@ -94,11 +92,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   void _onPageChange(int i, Function funtion) async {
-    if (i == 0) {
-      _leftVal = (context.screenWidth * .25) ;
-    } else {
-      _leftVal = 0 * _percent;
-    }
     _pageController.animateToPage(i,
         duration: Duration(milliseconds: 400), curve: Curves.easeInCubic);
 
