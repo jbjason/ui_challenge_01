@@ -41,16 +41,16 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            height: context.screenHeight * .2,
-            width: context.screenWidth * .9,
+            height: context.screenHeight * .275,
             bottom: 5,
+            width: context.screenWidth * .9,
             child: DashboardBottomList(),
           ),
           Positioned(
-            bottom: context.screenHeight * .2,
-            right: 0,
-            width: 280,
-            height: 250,
+            bottom: context.screenHeight * .3,
+            right: context.screenWidth*.1,
+            width: 260,
+            height: 240,
             child: Transform(
               alignment: Alignment.center,
               transform: Matrix4.identity()

@@ -21,7 +21,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _navItemAninmation;
   late Animation _navItemcolorAnimation;
-  double _controllerValue = 0, _percent = 0;
+  double _controllerValue = 0, _percent = 0, _leftVal = 0;
   int _currentPage = 0;
 
   @override
@@ -47,6 +47,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     _pageBuilders.add((percent) =>
         ProfileScreen(controller: _pageController, percent: percent));
     _pageController.addListener(_listener);
+    WidgetsBinding.instance.addPostFrameCallback(
+        (_) => setState(() => _leftVal = context.screenWidth * .25));
   }
 
   void _listener() => setState(() => _controllerValue = _pageController.page!);
@@ -61,13 +63,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         child: SafeArea(
           child: Stack(
             children: [
-              Positioned(
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
-                child: HomeMovingActor(controller: _rhinoController),
-              ),
               PageView.builder(
                 controller: _pageController,
                 clipBehavior: Clip.none,
@@ -78,6 +73,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   _percent = _controllerValue - index;
                   return _pageBuilders[index](_percent);
                 },
+              ),
+              Positioned.fill(
+                left: 0,
+                bottom: context.screenHeight * .25,
+                child: HomeMovingActor(controller: _rhinoController),
               ),
             ],
           ),
@@ -94,13 +94,20 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   void _onPageChange(int i, Function funtion) async {
+    if (i == 0) {
+      _leftVal = (context.screenWidth * .25) ;
+    } else {
+      _leftVal = 0 * _percent;
+    }
     _pageController.animateToPage(i,
-        duration: Duration(milliseconds: 1000), curve: Curves.easeInCubic);
+        duration: Duration(milliseconds: 400), curve: Curves.easeInCubic);
+
     _rhinoController.setCameraOrbit(
       MyConstant.cameraOrbitList[i][0],
       MyConstant.cameraOrbitList[i][1],
       MyConstant.cameraOrbitList[i][2],
     );
+
     // Future.delayed(Duration()).then((_) {
     //   _controller.stop();
     //   _controller.forward(from: 0.0).whenComplete(() {

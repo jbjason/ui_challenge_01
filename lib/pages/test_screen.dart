@@ -107,7 +107,7 @@ class _TestScreenState extends State<TestScreen>
               //     ],
               //   ),
               // )
-
+          //  HomeMovingActor(controller: _controller),
               /// Actor animation test
               Row(
                 children: [
@@ -119,7 +119,7 @@ class _TestScreenState extends State<TestScreen>
                       );
                       // _rotateVal += 5;
                       // _rotateVal2 += 5;
-                      // _controller.setCameraOrbit(90, 90, 0);
+                      //_controller.setCameraOrbit(90, 90, 80);
                       // MyDimens.logError("rotateVal: $_rotateVal");
                     },
                     child: Text("data plus"),
@@ -160,10 +160,9 @@ class _TestScreenState extends State<TestScreen>
   // }
 }
 
-
 class RedOverlayWithHole extends StatelessWidget {
   const RedOverlayWithHole({super.key});
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -172,7 +171,7 @@ class RedOverlayWithHole extends StatelessWidget {
           Container(
             color: Colors.white,
             alignment: Alignment.center,
-            child: FlutterLogo(size: 300), // <-- your background content
+            child: FlutterLogo(size: 400), // <-- your background content
           ),
 
           // 2. Foreground with red + hole
@@ -186,6 +185,7 @@ class RedOverlayWithHole extends StatelessWidget {
   }
 }
 
+/// 1st approach
 class RedOverlayPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -197,12 +197,10 @@ class RedOverlayPainter extends CustomPainter {
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
 
     // Punch out a transparent circle
-    final holePaint = Paint()
-      ..blendMode = BlendMode.clear; // clears pixels
     canvas.drawCircle(
       Offset(size.width / 2, size.height / 3), // circle position
       80, // circle radius
-      holePaint,
+      Paint()..blendMode = BlendMode.clear, // clear pixell
     );
 
     // Restore canvas
@@ -211,4 +209,21 @@ class RedOverlayPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+/// 2nd approach
+class HoleClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path()
+      ..fillType = PathFillType.evenOdd // important for making a hole
+      ..addRect(Rect.fromLTWH(0, 0, size.width, size.height)) // full red rect
+      ..addOval(Rect.fromCircle(
+        center: Offset(size.width / 2, size.height / 3), // circle position
+        radius: 80, // circle radius
+      ));
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }

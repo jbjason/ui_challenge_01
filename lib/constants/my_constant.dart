@@ -28,8 +28,8 @@ abstract class MyConstant {
     ),
   ];
   static const List<List<double>> cameraOrbitList = [
-    [90, 90, 0],
-    [0, 90, 0],
+    [90, 90, 90],
+    [0, 90, 120],
     [60, 90, 90],
   ];
 }

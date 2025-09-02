@@ -52,7 +52,8 @@ class _HomeNavbarState extends State<HomeNavbar> {
     return AnimatedBuilder(
       animation: widget._controller,
       builder: (context, _) {
-        return SizedBox(
+        return Container(
+          color: Colors.white,
           height: kBottomNavigationBarHeight,
           child: Column(
             children: [

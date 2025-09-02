@@ -34,7 +34,7 @@ class ScheduleScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            height: context.screenHeight * .3,
+            height: context.screenHeight * .275,
             width: context.screenWidth * .9,
             bottom: 5,
             child: DashboardBottomList(),

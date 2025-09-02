@@ -7,7 +7,6 @@ import 'package:ui_challenge_01/constants/my_image.dart';
 class HomeMovingActor extends StatelessWidget {
   const HomeMovingActor({super.key, required this.controller});
   final Flutter3DController controller;
-
   @override
   Widget build(BuildContext context) {
     return Flutter3DViewer(
@@ -15,7 +14,7 @@ class HomeMovingActor extends StatelessWidget {
       enableTouch: false,
       src: MyImage.rhinoImageGLB,
       onLoad: (modelAddress) {
-      //  controller.playAnimation();
+        controller.playAnimation();
         controller.setCameraOrbit(
           MyConstant.cameraOrbitList[0][0],
           MyConstant.cameraOrbitList[0][1],

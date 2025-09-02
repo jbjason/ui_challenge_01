@@ -23,11 +23,11 @@ class DashboardCirclePainter extends CustomPainter {
       ..strokeWidth = 15 * (1 - percent)
       ..shader = _getColorShade(Colors.deepOrange).createShader(rect);
     canvas.drawOval(
-        Rect.fromCenter(center: center, width: w + 40, height: h + 40), paint);
+        Rect.fromCenter(center: center, width: w + 20, height: h + 20), paint);
     canvas.drawOval(
-        Rect.fromCenter(center: center, width: w, height: h), paint2);
+        Rect.fromCenter(center: center, width: w - 20, height: h - 20), paint2);
     canvas.drawOval(
-        Rect.fromCenter(center: center, width: w - 40, height: h - 40), paint3);
+        Rect.fromCenter(center: center, width: w - 60, height: h - 60), paint3);
   }
 
   SweepGradient _getColorShade(Color color) {
