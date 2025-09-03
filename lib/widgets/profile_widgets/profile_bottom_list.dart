@@ -11,7 +11,7 @@ class ProfileBottomList extends StatelessWidget {
         children: List.generate(
           3,
           (i) => Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(30),
             margin: EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
