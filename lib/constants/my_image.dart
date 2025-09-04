@@ -7,6 +7,8 @@ abstract class MyImage {
   static const stepsIcon = "assets/icons/steps.png";
   static const hoursIcon = "assets/icons/hours.png";
 
+  static const natureImage = "assets/images/nature.png";
+
   static const actorImageJson = "assets/images/actor.json";
   static const movingMountainImageJson = "assets/images/moving_mountain.json";
   static const movingPlaneImageJson = "assets/images/moving_plane.json";

@@ -27,8 +27,8 @@ class HomeScreen extends StatelessWidget {
             child: Transform(
               alignment: Alignment.centerRight,
               transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.003)
-                ..translate((width * .45) * percent, 0)
+                ..setEntry(3, 2, 0.0025)
+                ..translate((width * .35) * percent, 0)
                 ..rotateY(math.radians(90 * percent.clamp(-1, 1))),
               child: DashboardTopTextCount(),
             ),
@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
           ),
           // 3 circular painter
           Positioned(
-            bottom: context.screenHeight * .3,
+            bottom: context.screenHeight * .25,
             right: context.screenWidth * .13,
             width: 240,
             height: 240,

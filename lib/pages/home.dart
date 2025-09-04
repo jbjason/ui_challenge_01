@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_3d_controller/flutter_3d_controller.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
+import 'package:ui_challenge_01/constants/my_color.dart';
 import 'package:ui_challenge_01/constants/my_constant.dart';
 import 'package:ui_challenge_01/pages/dashboard_screen.dart';
 import 'package:ui_challenge_01/pages/profile_screen.dart';
@@ -42,7 +43,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Color(0xFFfcf7f3),
+      backgroundColor: MyColor.backgroundColor,
+      //backgroundColor: Color(0xFFfcf7f3),
       body: SizedBox(
         width: context.screenWidth,
         height: context.screenHeight,
@@ -51,7 +53,7 @@ class _HomeState extends State<Home> {
             children: [
               // animated Rhino actor
               Positioned.fill(
-                bottom: context.screenHeight * .25,
+                bottom: context.screenHeight * .2,
                 child: HomeMovingActor(controller: _rhinoController),
               ),
               // pages
@@ -75,12 +77,13 @@ class _HomeState extends State<Home> {
 
   void _onPageChange(int i) async {
     _pageController.animateToPage(i,
-        duration: MyConstant.duration, curve: Curves.easeInOut);
-    _rhinoController.setCameraOrbit(
-      MyConstant.cameraOrbitList[i][0],
-      MyConstant.cameraOrbitList[i][1],
-      MyConstant.cameraOrbitList[i][2],
-    );
+        duration: MyConstant.duration, curve: Curves.ease);
+    await Future.delayed(Duration(milliseconds: 50))
+        .then((_) => _rhinoController.setCameraOrbit(
+              MyConstant.cameraOrbitList[i][0],
+              MyConstant.cameraOrbitList[i][1],
+              MyConstant.cameraOrbitList[i][2],
+            ));
   }
 
   @override

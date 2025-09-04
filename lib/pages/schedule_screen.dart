@@ -28,8 +28,8 @@ class ScheduleScreen extends StatelessWidget {
             child: Transform(
               alignment: Alignment.centerRight,
               transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.003)
-                ..translate((width * .45) * percent, 0)
+                ..setEntry(3, 2, 0.0025)
+                ..translate((width * .35) * percent, 0)
                 ..rotateY(math.radians(90 * percent.clamp(-1, 1))),
               child: ScheduleTopText(),
             ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ui_challenge_01/constants/my_color.dart';
 import 'package:ui_challenge_01/constants/my_constant.dart';
+import 'package:ui_challenge_01/constants/my_image.dart';
 
 class DashboardBottomList extends StatelessWidget {
   const DashboardBottomList({super.key});
@@ -8,7 +10,6 @@ class DashboardBottomList extends StatelessWidget {
     return SingleChildScrollView(
       clipBehavior: Clip.none,
       child: Column(
-        
         children: List.generate(
           3,
           (i) => Container(
@@ -23,10 +24,10 @@ class DashboardBottomList extends StatelessWidget {
                   offset: Offset(5, 5),
                   color: Colors.grey.shade300,
                 ),
-                 BoxShadow(
-                  blurRadius: 15,
+                BoxShadow(
+                  blurRadius: 30,
                   offset: Offset(-5, -5),
-                  color: Colors.white,
+                  color: MyColor.backgroundColor,
                 ),
               ],
             ),
@@ -34,11 +35,14 @@ class DashboardBottomList extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // image
-                Image.network(
-                  "https://picsum.photos/200/300",
-                  width: 80,
-                  height: 80,
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      image: DecorationImage(
+                        image: AssetImage(MyImage.natureImage)
+                      ),),
                 ),
+                Image.asset(MyImage.natureImage),
                 const SizedBox(width: 10),
                 // title, subtitle & icon
                 Expanded(
