@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
             child: Transform(
               alignment: Alignment.centerRight,
               transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.001)
+                ..setEntry(3, 2, 0.003)
                 ..translate((width * .45) * percent, 0)
                 ..rotateY(math.radians(90 * percent.clamp(-1, 1))),
               child: DashboardTopTextCount(),
@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
             child: Transform(
               alignment: Alignment.center,
               transform: Matrix4.identity()
-                ..setEntry(3, 2, .0001)
+                ..setEntry(3, 2, .0002)
                 ..rotateX(math.radians(245))
                 ..rotateZ(math.radians(360 * percent.clamp(-1, 1))),
               child: CustomPaint(

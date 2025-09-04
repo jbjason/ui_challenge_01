@@ -13,7 +13,7 @@ class HomeMovingActor extends StatelessWidget {
       enableTouch: false,
       src: MyImage.rhinoImageGLB,
       onLoad: (modelAddress) {
-      //  controller.playAnimation();
+       controller.playAnimation();
         controller.setCameraOrbit(
           MyConstant.cameraOrbitList[0][0],
           MyConstant.cameraOrbitList[0][1],

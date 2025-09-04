@@ -192,14 +192,12 @@ class RedOverlayPainter extends CustomPainter {
     // Save the current canvas layer so blend modes work
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
 
-    // Draw full red rectangle
     final paint = Paint()..color = Colors.red;
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
 
-    // Punch out a transparent circle
     canvas.drawCircle(
-      Offset(size.width / 2, size.height / 3), // circle position
-      80, // circle radius
+      Offset(size.width / 2, size.height / 3), 
+      80, 
       Paint()..blendMode = BlendMode.clear, // clear pixell
     );
 
@@ -216,10 +214,10 @@ class HoleClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     final path = Path()
       ..fillType = PathFillType.evenOdd // important for making a hole
-      ..addRect(Rect.fromLTWH(0, 0, size.width, size.height)) // full red rect
+      ..addRect(Rect.fromLTWH(0, 0, size.width, size.height))
       ..addOval(Rect.fromCircle(
-        center: Offset(size.width / 2, size.height / 3), // circle position
-        radius: 80, // circle radius
+        center: Offset(size.width / 2, size.height / 3),
+        radius: 80, 
       ));
     return path;
   }

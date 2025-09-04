@@ -7,7 +7,7 @@ abstract class MyConstant {
   static const String font2 = 'Script';
   static const String font3 = 'Vinque';
 
-  static const Duration duration = Duration(milliseconds: 400);
+  static const Duration duration = Duration(milliseconds: 600);
 
   static const List<DailyGoal> dailyGoals = [
     DailyGoal(
