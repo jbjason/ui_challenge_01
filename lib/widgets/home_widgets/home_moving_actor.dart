@@ -1,4 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
 import 'package:flutter/material.dart';
 import 'package:flutter_3d_controller/flutter_3d_controller.dart';
 import 'package:ui_challenge_01/constants/my_constant.dart';
@@ -14,7 +13,7 @@ class HomeMovingActor extends StatelessWidget {
       enableTouch: false,
       src: MyImage.rhinoImageGLB,
       onLoad: (modelAddress) {
-        controller.playAnimation();
+      //  controller.playAnimation();
         controller.setCameraOrbit(
           MyConstant.cameraOrbitList[0][0],
           MyConstant.cameraOrbitList[0][1],

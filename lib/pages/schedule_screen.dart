@@ -9,7 +9,7 @@ class ScheduleScreen extends StatelessWidget {
   const ScheduleScreen({
     super.key,
     required this.controller,
-    required this.percent,
+    required this.percent
   });
   final PageController controller;
   final double percent;
@@ -20,6 +20,7 @@ class ScheduleScreen extends StatelessWidget {
       opacity: 1 - percent.abs().clamp(0, 1),
       child: Stack(
         children: [
+          // top title text & years
           Positioned(
             top: 30,
             left: 0,
@@ -33,8 +34,9 @@ class ScheduleScreen extends StatelessWidget {
               child: ScheduleTopText(),
             ),
           ),
+          // bottom list
           Positioned(
-            height: context.screenHeight * .275,
+            height: context.screenHeight * .3,
             width: context.screenWidth * .9,
             bottom: 5,
             child: DashboardBottomList(),

@@ -7,11 +7,8 @@ import 'package:ui_challenge_01/widgets/dashboard_widgets/dashboard_top_text_cou
 import 'package:vector_math/vector_math_64.dart' as math;
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({
-    super.key,
-    required this.controller,
-    required this.percent,
-  });
+  const HomeScreen(
+      {super.key, required this.controller, required this.percent});
   final PageController controller;
   final double percent;
   @override
@@ -22,15 +19,11 @@ class HomeScreen extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          // Positioned.fill(
-          //   right: -context.screenHeight * .1,
-          //   child: HomeMovingActor(cameraOrbit: "90deg 90deg"),
-          // ),
+          // top title, text, statistics
           Positioned(
             top: 30,
             left: 0,
             width: width * .5,
-            // height: context.screenHeight * .3,
             child: Transform(
               alignment: Alignment.centerRight,
               transform: Matrix4.identity()
@@ -40,23 +33,25 @@ class HomeScreen extends StatelessWidget {
               child: DashboardTopTextCount(),
             ),
           ),
+          // bottom list
           Positioned(
-            height: context.screenHeight * .275,
+            height: context.screenHeight * .3,
             bottom: 5,
             width: context.screenWidth * .9,
             child: DashboardBottomList(),
           ),
+          // 3 circular painter
           Positioned(
             bottom: context.screenHeight * .3,
-            right: context.screenWidth*.1,
-            width: 260,
+            right: context.screenWidth * .13,
+            width: 240,
             height: 240,
             child: Transform(
               alignment: Alignment.center,
               transform: Matrix4.identity()
                 ..setEntry(3, 2, .0001)
-                ..rotateX(math.radians(240))
-                ..rotateZ(math.radians(270 * percent.clamp(-1, 1))),
+                ..rotateX(math.radians(245))
+                ..rotateZ(math.radians(360 * percent.clamp(-1, 1))),
               child: CustomPaint(
                 painter: DashboardCirclePainter(percent: percent),
               ),

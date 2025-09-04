@@ -9,7 +9,13 @@ class ScheduleTopText extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("JOURNAL", style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          "JOURNAL",
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              fontFamily: MyConstant.font3),
+        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -26,7 +32,12 @@ class ScheduleTopText extends StatelessWidget {
             ),
           ],
         ),
-        Text("July 2020"),
+        Text(
+          "July 2020",
+          style: TextStyle(
+            fontFamily: MyConstant.font3,
+          ),
+        ),
       ],
     );
   }

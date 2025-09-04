@@ -10,7 +10,13 @@ class ProfileTopText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // title
-        Text("Profile", style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          "Profile",
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              fontFamily: MyConstant.font3),
+        ),
         // highlight text & back button
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,7 +35,12 @@ class ProfileTopText extends StatelessWidget {
           ],
         ),
         // age text
-        Text("29 years old"),
+        Text(
+          "29 years old",
+          style: TextStyle(
+            fontFamily: MyConstant.font3,
+          ),
+        ),
       ],
     );
   }

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
+
 class HomeNavbarPainter extends CustomPainter {
   final double controllerValue;
   final double currentStartPoint;
   final double currentEndPoint;
   final double destinationPoint;
   final double strokeWidth;
+
   const HomeNavbarPainter({
     required this.controllerValue,
     required this.currentStartPoint,
-    required this.destinationPoint,
     required this.currentEndPoint,
+    required this.destinationPoint,
     this.strokeWidth = 5.0,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    // print(
-    //     "destination: ${destinationPoint.toStringAsFixed(2)}, from ${(currentStartPoint + (destinationPoint * controllerValue)).toStringAsFixed(2)} to ${(currentEndPoint + (destinationPoint * controllerValue)).toStringAsFixed(2)}");
     final h = size.height;
     final paint = Paint()
       ..color = Colors.red
@@ -32,5 +32,10 @@ class HomeNavbarPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant HomeNavbarPainter oldDelegate) {
+    return oldDelegate.controllerValue != controllerValue ||
+        oldDelegate.currentStartPoint != currentStartPoint ||
+        oldDelegate.currentEndPoint != currentEndPoint ||
+        oldDelegate.destinationPoint != destinationPoint;
+  }
 }

@@ -3,7 +3,6 @@ import 'package:ui_challenge_01/constants/my_constant.dart';
 
 class ProfileBottomList extends StatelessWidget {
   const ProfileBottomList({super.key});
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -11,8 +10,8 @@ class ProfileBottomList extends StatelessWidget {
         children: List.generate(
           3,
           (i) => Container(
-            padding: EdgeInsets.all(30),
-            margin: EdgeInsets.all(10),
+            padding: EdgeInsets.all(25),
+            margin: EdgeInsets.all(7),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: MyConstant.dailyGoals[i].color,
@@ -28,10 +27,12 @@ class ProfileBottomList extends StatelessWidget {
                   child: Text(
                     MyConstant.dailyGoals[i].title,
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
+                        fontWeight: FontWeight.bold,
+                        fontFamily: MyConstant.font3,
+                        color: Colors.white),
                   ),
                 ),
-                // count v
+                // count value
                 Text(
                   MyConstant.dailyGoals[i].value,
                   style: TextStyle(

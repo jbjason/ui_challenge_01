@@ -8,10 +8,13 @@ class DashboardTopText extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // title
         Text(
           "Daily Goal",
           style: TextStyle(
-              fontWeight: FontWeight.bold, fontFamily: MyConstant.font3),
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              fontFamily: MyConstant.font3),
         ),
         RichText(
           text: TextSpan(

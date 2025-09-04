@@ -42,17 +42,19 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 233, 230, 229),
+      backgroundColor:Color(0xFFfcf7f3),
       body: SizedBox(
         width: context.screenWidth,
         height: context.screenHeight,
         child: SafeArea(
           child: Stack(
             children: [
+              // animated Rhino actor
               Positioned.fill(
                 bottom: context.screenHeight * .25,
                 child: HomeMovingActor(controller: _rhinoController),
               ),
+              // pages
               PageView.builder(
                 controller: _pageController,
                 clipBehavior: Clip.none,
@@ -73,7 +75,7 @@ class _HomeState extends State<Home> {
 
   void _onPageChange(int i) async {
     _pageController.animateToPage(i,
-        duration: Duration(milliseconds: 1000), curve: Curves.easeInCubic);
+        duration: MyConstant.duration, curve: Curves.easeInOut);
     _rhinoController.setCameraOrbit(
       MyConstant.cameraOrbitList[i][0],
       MyConstant.cameraOrbitList[i][1],

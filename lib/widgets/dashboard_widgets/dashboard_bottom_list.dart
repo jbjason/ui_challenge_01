@@ -3,11 +3,12 @@ import 'package:ui_challenge_01/constants/my_constant.dart';
 
 class DashboardBottomList extends StatelessWidget {
   const DashboardBottomList({super.key});
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      clipBehavior: Clip.none,
       child: Column(
+        
         children: List.generate(
           3,
           (i) => Container(
@@ -22,17 +23,24 @@ class DashboardBottomList extends StatelessWidget {
                   offset: Offset(5, 5),
                   color: Colors.grey.shade300,
                 ),
+                 BoxShadow(
+                  blurRadius: 15,
+                  offset: Offset(-5, -5),
+                  color: Colors.white,
+                ),
               ],
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // image
                 Image.network(
                   "https://picsum.photos/200/300",
                   width: 80,
                   height: 80,
                 ),
                 const SizedBox(width: 10),
+                // title, subtitle & icon
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -53,7 +61,7 @@ class DashboardBottomList extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Icon(Icons.lightbulb_outline, color: Colors.red),
+                Icon(Icons.lightbulb, color: Colors.red),
               ],
             ),
           ),

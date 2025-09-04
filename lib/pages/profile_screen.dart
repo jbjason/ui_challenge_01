@@ -1,17 +1,15 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:flutter/material.dart';
 import 'package:ui_challenge_01/constants/media_query_extension.dart';
+import 'package:ui_challenge_01/constants/my_constant.dart';
 import 'package:ui_challenge_01/widgets/profile_widgets/profile_body_clipper.dart';
 import 'package:ui_challenge_01/widgets/profile_widgets/profile_bottom_list.dart';
 import 'package:ui_challenge_01/widgets/profile_widgets/profile_top_text.dart';
 import 'package:vector_math/vector_math_64.dart' as math;
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({
-    super.key,
-    required this.controller,
-    required this.percent,
-  });
+  const ProfileScreen(
+      {super.key, required this.controller, required this.percent});
   final PageController controller;
   final double percent;
   @override
@@ -22,6 +20,7 @@ class ProfileScreen extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
+          // daily goal title & colorful list
           Positioned.fill(
             left: -context.screenWidth * .05,
             right: -context.screenWidth * .05,
@@ -30,17 +29,20 @@ class ProfileScreen extends StatelessWidget {
               child: Container(
                 color: Colors.white,
                 child: Column(
+                  spacing: 10,
                   children: [
                     SizedBox(height: context.screenHeight * .5),
-                    const SizedBox(height: 20),
-                    Text("Daily Goals"),
-                    const SizedBox(height: 20),
+                    Text(
+                      "Daily Goals",
+                      style: TextStyle(fontFamily: MyConstant.font3),
+                    ),
                     Expanded(child: ProfileBottomList()),
                   ],
                 ),
               ),
             ),
           ),
+          // top title text & years
           Positioned(
             top: 30,
             left: 0,

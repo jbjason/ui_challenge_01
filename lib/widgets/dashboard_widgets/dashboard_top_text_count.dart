@@ -31,15 +31,17 @@ class DashboardTopTextCount extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
+          // image
           Image.asset(img),
           const SizedBox(width: 15),
+          // title, subtitle
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 value,
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 20,
                   fontFamily: MyConstant.font3,
                   fontWeight: FontWeight.bold,
                 ),
